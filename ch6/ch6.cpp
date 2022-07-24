@@ -1,12 +1,12 @@
 #include "ch6.h"
 
-int bisectionMethod(double &a, double &b, double theta, Fn f)
+int bisectionMethod(double &a, double &b, double theta, int f)
 {
     int i = 0;
     double c;
     // bisection can't be applied to an improper interval,
     // non-positive theta or if f(a) and f(b) have the same sign
-    if (a > b || theta <= 0.0 || func(f, a) * func(f, b) > 0)
+    if (a > b || theta <= 0.0 || succ(f, a) * succ(f, b) > 0)
         return -1;
     // while precision has not been reached
     while (b - a < theta)
@@ -14,7 +14,7 @@ int bisectionMethod(double &a, double &b, double theta, Fn f)
         // compute midpoint of interval
         c = 0.5 * (a + b);
         // use IVT to find whether root is in [a,c] or [c,b]
-        if (func(f, a) * func(f, c) < 0)
+        if (succ(f, a) * succ(f, c) < 0)
             b = c;
         else
             a = c;
@@ -23,17 +23,18 @@ int bisectionMethod(double &a, double &b, double theta, Fn f)
     return i; // return iterations
 }
 
-double func(Fn f, double x)
+double succ(int f, double x)
 {
     switch (f)
     {
-    case a:
-        return expt(x, 3) - 2 * expt(x, 2) - 5 * x + 6;
+    case 0:
+        return pow(x, 3) - 2 * pow(x, 2) - 5 * x + 6;
         break;
-    case b:
+    case 1:
         return (x - 1) * (x + 2) * (x - 3);
         break;
-    case c:
+    case 2:
         return 0.3 + cos(x);
+        break;
     }
 }
