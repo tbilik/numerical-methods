@@ -9,7 +9,7 @@ int bisectionMethod(double &a, double &b, double theta, int f)
     if (a > b || theta <= 0.0 || succ(f, a) * succ(f, b) > 0)
         return -1;
     // while precision has not been reached
-    while (b - a < theta)
+    while (b - a > theta)
     {
         // compute midpoint of interval
         c = 0.5 * (a + b);
